@@ -1,0 +1,43 @@
+---
+- hosts: homelab-parents
+  tasks:
+  - name: shutdown vm1
+    become: yes
+    shell: virsh destroy homelab-vm1
+  - name: shutdown vm2
+    become: yes
+    shell: virsh destroy homelab-vm2
+  - name: shutdown vm3
+    become: yes
+    shell: virsh destroy homelab-vm3
+  - name: reimage vm1
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm1 --snapshotname base --running
+  - name: reimage vm2
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm2 --snapshotname base --running
+  - name: reimage vm3
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm3 --snapshotname base --running
+- hosts: homelab-vms
+  gather_facts: no
+  tasks:
+  - name: waiting for reachable
+    wait_for_connection:
+  - name: gather facts
+    setup:
+- hosts: homelab-vms
+  tasks:
+  - name: initial reboot
+    reboot:
+    become: yes
+  - name: update and upgrade
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+    become: yes
+  - name: reboot for kernel
+    reboot:
+    become: yes
