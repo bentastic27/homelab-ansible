@@ -1,0 +1,24 @@
+---
+# install snapd depending on os type
+
+- name: installing snapd on redhat system
+  import_tasks: snapd_redhat.yml
+  when: ansible_os_family|lower == 'redhat'
+
+- name: install snapd on debian system
+  import_tasks: snapd_debian.yml
+  when: ansible_os_family|lower == 'debian'
+
+- name: enable snapd ensure it is started
+  service:
+    name: snapd
+    enabled: yes
+    state: started
+
+- name: installing microk8s via snapd
+  become: yes
+  shell: snap install microk8s --classic
+
+#- name: enable the dns addon
+#  # full path due to microk8s.enable not being in the path for ansible
+#  shell: /snap/bin/microk8s.enable dns
