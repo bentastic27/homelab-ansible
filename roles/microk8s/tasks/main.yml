@@ -11,13 +11,24 @@
 
 - name: enable snapd ensure it is started
   service:
-    name: snapd
+    name: snapd.service
     enabled: yes
     state: started
+
+# symlink required on CentOS 7 for classic confinement
+- name: symlink /snap if redhat
+  when: ansible_os_family|lower == 'redhat'
+  become: yes
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
 
 - name: installing microk8s via snapd
   become: yes
   shell: snap install microk8s --classic
+  register: command_result
+  failed_when: "'error' in command_result.stderr"
 
 #- name: enable the dns addon
 #  # full path due to microk8s.enable not being in the path for ansible
