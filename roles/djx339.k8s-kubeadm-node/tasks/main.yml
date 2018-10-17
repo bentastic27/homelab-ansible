@@ -1,0 +1,32 @@
+---
+- name: read join command
+  shell: cat /etc/kubernetes/join_command.sh
+  delegate_to: "{{ groups['master'][0] }}"
+  register: join_cat
+
+- name: set join command fact
+  set_fact:
+    k8s_join_cmd: "{{ join_cat.stdout }}"
+
+- name: check k8s_join_cmd
+  fail:
+    msg: "k8s_join_cmd not found"
+  when:
+    - k8s_join_cmd == ""
+
+- name: join
+  shell: "{{ k8s_join_cmd }}"
+  args:
+    creates: /tmp/kube_join_completed
+  register: kube_join
+
+- name: print join output
+  debug:
+    msg: "kubeadm join output: {{ kube_join.stdout }} \n  rc:  {{ kube_join.rc }}"
+  when: kube_join.changed
+
+- name: record successful join
+  file:
+    path: /tmp/kube_join_completed
+    state: touch
+  when: kube_join.rc == 0
