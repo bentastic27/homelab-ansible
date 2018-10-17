@@ -1,22 +1,28 @@
 ---
-- name: ensure apt-transport-https, curl and docker-ce
-  become: yes
+- name: ensure apt deps
   apt:
     update_cache: yes
     name:
     - apt-transport-https
     - curl
-    - docker-ce
+    - software-properties-common
+    - ca-certificates
     state: present
 
+- name: adding the docker apt key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  args:
+    warn: false
+
 - name: adding the google apt key
-  become: yes
   shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   args:
     warn: false
 
+- name: add docker repo
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
 - name: copy the kubernetes.list file for apt
-  become: yes
   copy:
     src: kubernetes.list
     dest: /etc/apt/sources.list.d/kubernetes.list
@@ -25,25 +31,22 @@
     mode: 0644
 
 - name: install kubelet, kubeadm andkubectl
-  become: yes
   apt:
     update_cache: yes
     name:
     - kubelet
     - kubeadm
     - kubectl
+    - docker-ce=17.03.0~ce-0~ubuntu
     state: present
 
 - name: prevent kubeadm from being updated
-  become: yes
   shell: apt-mark hold kubelet kubeadm kubectl
 
 - name: disable swap
-  become: yes
   shell: swapoff -a
 
 - name: disable swap in fstab
-  become: yes
   shell: sed -e '/swap/s/^/#/g' -i /etc/fstab
   args:
     warn: false
