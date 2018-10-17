@@ -6,6 +6,7 @@
     name:
     - apt-transport-https
     - curl
+    - docker-ce
     state: present
 
 - name: adding the google apt key
