@@ -1,5 +1,5 @@
 ---
-- name: ensure apt-transport-https and curl
+- name: ensure apt-transport-https, curl and docker-ce
   become: yes
   apt:
     update_cache: yes
@@ -12,6 +12,8 @@
 - name: adding the google apt key
   become: yes
   shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  args:
+    warn: false
 
 - name: copy the kubernetes.list file for apt
   become: yes
@@ -35,3 +37,13 @@
 - name: prevent kubeadm from being updated
   become: yes
   shell: apt-mark hold kubelet kubeadm kubectl
+
+- name: disable swap
+  become: yes
+  shell: swapoff -a
+
+- name: disable swap in fstab
+  become: yes
+  shell: sed -e '/swap/s/^/#/g' -i /etc/fstab
+  args:
+    warn: false
