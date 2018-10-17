@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Ben Healey
+  description: Installing the kubeadm dependencies
+  license: license (GPLv2, CC-BY, etc)
+  min_ansible_version: 2.4
+  platform:
+  - name: Ubuntu
