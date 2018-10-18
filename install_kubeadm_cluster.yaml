@@ -1,0 +1,16 @@
+---
+- hosts: homelab-vms
+  become: yes
+  roles:
+  - kubeadm_deps
+- hosts: master
+  become: yes
+  roles:
+  - djx339.k8s-kubeadm-master
+  vars:
+    k8s_network_conf_file: https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+    k8s_kubeadm_init_args: "--pod-network-cidr=10.244.0.0/16"
+- hosts: nodes
+  become: yes
+  roles:
+  - djx339.k8s-kubeadm-node
