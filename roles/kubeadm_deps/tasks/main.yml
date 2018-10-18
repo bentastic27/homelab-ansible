@@ -30,14 +30,14 @@
     group: root
     mode: 0644
 
-- name: install kubelet, kubeadm andkubectl
+- name: install kubelet, kubeadm, kubectl and docker
   apt:
     update_cache: yes
     name:
     - kubelet
     - kubeadm
     - kubectl
-    - docker-ce=17.03.0~ce-0~ubuntu
+    - docker-ce=17.03.3~ce-0~ubuntu-xenial
     state: present
 
 - name: prevent kubeadm from being updated
