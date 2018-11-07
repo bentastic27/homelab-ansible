@@ -24,3 +24,11 @@
   tasks:
   - name: waiting for reachable
     wait_for_connection:
+  - name: gather facts
+    setup:
+  - name: disable unattended upgrades
+    become: yes
+    service:
+      name: unattended-upgrades
+      enabled: no
+      state: stopped
