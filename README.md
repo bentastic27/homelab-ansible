@@ -8,5 +8,7 @@ Requires Ansible 2.7 for the reboot module
 Resetting the VMs to their base images:
 
 ```
-ansible-playbook -i hosts reset_homelab.yaml --ask-become-pass
+$ control.sh reset
 ```
+
+Or just run the `control.sh` script without any arguments to see the available options.

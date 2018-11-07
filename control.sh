@@ -13,4 +13,11 @@ elif [ "$1" = "reset" ]; then
 
 elif [ "$1" = 'kubeadm_cluster' ]; then
     ansible-playbook -i hosts --ask-vault-pass --extra-vars '@passwd.yaml' reset_homelab.yaml install_kubeadm_cluster.yaml
+
+else
+    echo "available commands:"
+    echo
+    echo "reset"
+    echo "kubeadm_cluster"
+    echo
 fi
