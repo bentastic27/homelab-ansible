@@ -32,3 +32,6 @@
       name: unattended-upgrades
       enabled: no
       state: stopped
+  - name: reboot to kill automated apt stuff
+    reboot:
+    become: yes
