@@ -24,15 +24,3 @@
   tasks:
   - name: waiting for reachable
     wait_for_connection:
-  - name: gather facts
-    setup:
-  - name: update and upgrade
-    apt:
-      name: "*"
-      state: latest
-      update_cache: yes
-      force_apt_get: yes
-    become: yes
-  - name: reboot for kernel
-    reboot:
-    become: yes
