@@ -13,8 +13,11 @@ homelab-vm1
 homelab-vm2
 homelab-vm3
 
-[all]
+[all:vars]
 ansible_user=ben
+ansible_become_pass='{{ sudo_pass }}'
+ansible_ssh_pass='{{ user_pass }}'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [homelab-vms:vars]
 ansible_python_interpreter=/usr/bin/python3
