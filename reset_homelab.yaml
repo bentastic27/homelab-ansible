@@ -26,11 +26,6 @@
     wait_for_connection:
   - name: gather facts
     setup:
-- hosts: homelab-vms
-  tasks:
-  - name: initial reboot
-    reboot:
-    become: yes
   - name: update and upgrade
     apt:
       name: "*"
