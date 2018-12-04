@@ -1,0 +1,15 @@
+hostname: homelab-vm3
+ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYDelG6vpZT3d54eEN4AhQA2EyXq3HRk6vEZiWgOEKP3yFgZVRnKyTLMIusX4kDvNEoGqZqzOmaM7Yx2+L9kI+VYeBwVllhVXb4zNvuhCIj0ntXoUGJg3x7Yg2/ysnCaCwMnDQ8N/7+CGxW0nHOvEhVMybOc52j6KanR5pgBTcIjt+klyqvvXo+WgJMOm71nItia1v5Gm07at5aqaSGMEvKQpvEoR3yQaoK4p5SyREr/u66SFIVml5lFL6a8EgkFfHueiWkBMAcVUc4bALlkrRcXYKC46pQbiLGXEbKb5qbHYBMimNVxN1u847+lKZzaqf+aXs0u0x4XDp/r9lvTxt ben@shadowfax
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDshxAw0KhohKulKMY7fiNHS1cP40UMryJVRaB9RwjqpcEDPfaKRvwmQ7YjthRG/d/vegkiwuS7VPhl+646HZ3fnPVix7gwAiLZSCdAAF+QHsJp5kSwg2Oj2lgMVsaN8dGIq/PnQQy04CSJgLsOW/w2YJBUND86P1+KtI+9aEE2OM4wDEY7NC4EA1FZuT/u8wLlPIVG729wqANEM2cLaZt1C03wftoo6oktE8XdKjDJZjJincLkk1OWgvJSXAr3qQGe97WH1796G4P8XzzWY+TPRydyOoPZsghL3c1LTxCQrzr5N8PLrPwuOTlbUQOHaZCLV094Cu2G/lZLBxfxTQ1p ben@phonehome
+rancher:
+  network:
+    dns:
+      nameservers:
+      - 192.168.1.1
+    interfaces:
+      eth0:
+        address: 192.168.1.5/24
+        gateway: 192.168.1.1
+        mtu: 1500
+        dhcp: false
