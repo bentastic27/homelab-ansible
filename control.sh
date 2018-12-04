@@ -17,6 +17,7 @@ elif [ "$1" = 'kubeadm_cluster' ]; then
 else
     echo "available commands:"
     echo
+    echo "init"
     echo "reset"
     echo "kubeadm_cluster"
     echo
