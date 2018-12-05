@@ -104,7 +104,7 @@ system_images:
   dnsmasq: rancher/k8s-dns-dnsmasq-nanny-amd64:1.14.10
   kubedns_sidecar: rancher/k8s-dns-sidecar-amd64:1.14.10
   kubedns_autoscaler: rancher/cluster-proportional-autoscaler-amd64:1.0.0
-  kubernetes: rancher/hyperkube:v1.11.3-rancher1
+  kubernetes: rancher/hyperkube:v1.11.5-rancher1
   flannel: rancher/coreos-flannel:v0.10.0
   flannel_cni: rancher/coreos-flannel-cni:v0.3.0
   calico_node: rancher/calico-node:v3.1.3
