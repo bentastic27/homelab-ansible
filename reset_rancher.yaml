@@ -1,0 +1,21 @@
+---
+- hosts: homelab-parents
+  tasks:
+  - name: shutdown vm1
+    become: yes
+    shell: virsh destroy homelab-vm1
+  - name: shutdown vm2
+    become: yes
+    shell: virsh destroy homelab-vm2
+  - name: shutdown vm3
+    become: yes
+    shell: virsh destroy homelab-vm3
+  - name: reimage vm1
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm1 --snapshotname rancher --running
+  - name: reimage vm2
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm2 --snapshotname rancher --running
+  - name: reimage vm3
+    become: yes
+    shell: virsh snapshot-revert --domain homelab-vm3 --snapshotname rancher --running
